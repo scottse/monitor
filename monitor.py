@@ -12,7 +12,7 @@ from icmplib import multiping
 # Global vars
 # Using a json file to import elements for the database connection.
 db_dbname = json.loads(open('sql.json', 'r').read())['sql']['pg_dbname']
-db_name = json.loads(open('sql.json', 'r').read())['sql']['pg_user']
+db_user = json.loads(open('sql.json', 'r').read())['sql']['pg_user']
 db_pass = json.loads(open('sql.json', 'r').read())['sql']['pg_pass']
 db_host = json.loads(open('sql.json', 'r').read())['sql']['pg_host']
 #db_port = json.loads(open('sql.json', 'r').read())['sql']['pg_port']
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     # Test connection to database server. The program will exit if it cannot conenct to the database or 
     # if username/password is not correct.
     try:
-        conn = psycopg2.connect(dbname=db_dbname, user=db_name, host=db_host, password=db_pass)
+        conn = psycopg2.connect(dbname=db_dbname, user=db_user, host=db_host, password=db_pass)
         pg_cur = conn.cursor()
     except psycopg2.OperationalError:
         sys.exit("Failed to connect to DB. Please check if the network connection or username/password is correct.")
