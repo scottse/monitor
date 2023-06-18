@@ -1,8 +1,0 @@
-{
-    "sql": {
-        "pg_user": "<username>",
-        "pg_pass": "<test>",
-        "pg_host": "<hostname/ip address>",
-        "pg_port": "5432"
-    }
-}
