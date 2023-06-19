@@ -1,19 +1,18 @@
 # Send an alert email for a node or website is down.
 import smtplib
+from email import EmailMessage
 
-def send_email():
-    alert_from = ""
-    alert_to = ""
-    hostdown = ""
+msg_from = "<email@example.com"
+msg_to = "email@example.com"
+msg_content = f"{} is down"
 
-    with open("alert_msg.txt") as em:
-        msg = ''
-        msg.set_content(em.read())
+e = EmailMessage()
+e["From"] = msg_from
+e["To"] = msg_to
+e["Subject"] = f"{} is down"
 
-        msg[ 'Subject' ] = str(f"Alert Message: {hostdown} is down") # Subject line here
-        msg[ 'From' ] = alert_from # Sending email account
-        msg[ 'To' ] = alert_to # Receiving email account
-
-    send = smtplib.SMTP("localhost")
-    send.send_message(msg)
-    send.quit()
+send = smtplib.SMTP("<SMTP of email provider")
+send.starttls()
+send.login(msg_from, "<Password")
+send.sendmail(msg_from, msg_to, e.as_string)
+send.quit()
