@@ -1,2 +1,2 @@
 # monitor
-A project to learn Python.
+This repo is used for my personal project aimed at learning Python.
