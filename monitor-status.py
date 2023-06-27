@@ -2,6 +2,7 @@
 import json
 import psycopg2
 import csv
+import pandas
 
 # Using a json file to import elements for the database connection.
 db_dbname = json.loads(open('sql.json', 'r').read())['sql']['pg_dbname']
@@ -31,6 +32,10 @@ def nodes():
     
     nodes_csv.close()
 
+    p_tables = pandas.read_csv('nodes.csv')
+    p_tables.to_html('nodes.txt')
+    p_html = p_tables.to_html()
+
 # Get a list of URLs from the database.
 def website():
     pg_cur.execute("SELECT url,ip_addr,status,timestamp FROM websites")
@@ -43,7 +48,21 @@ def website():
     cw.writerows(db_fetch)
     
     url_csv.close()
+    p_tables = pandas.read_csv('url.csv')
+    p_tables.to_html('url.txt')
+    p_html = p_tables.to_html()
 
-
+def status_page():
+    html_file = open('index.html','w')
+    html_file.write('<html>\n<head>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n<h2>Status Page</h2>\n')
+    with open('nodes.txt', 'r') as f1:
+        for l1 in f1:
+            html_file.write(l1)
+    html_file.write('<hr class="dashed">\n')
+    with open('url.txt', 'r') as f2:
+        for l2 in f2:
+            html_file.write(l2)
+    html_file.write('\n</body>\n</html>')
 nodes()
 website()
+status_page()
