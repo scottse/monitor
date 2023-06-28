@@ -86,7 +86,7 @@ def main():
 
 if __name__ == "__main__":
     # Enable logging
-    logging.basicConfig(filename='monitor.log',
+    logging.basicConfig(filename='/opt/monitor/monitor.log',
             filemode='a',
             format='%(asctime)s, %(levelname)s %(message)s',
             level=logging.WARNING)
