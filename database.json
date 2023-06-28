@@ -1,5 +1,6 @@
 {
     "sql": {
+        "pg_dbname":"<db name>",
         "pg_user": "<username>",
         "pg_pass": "<password>",
         "pg_host": "<hostname/ip address>",
