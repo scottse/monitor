@@ -11,14 +11,14 @@ from icmplib import multiping
 
 # Global vars
 # Using a json file to import elements for the database connection.
-db_dbname = json.loads(open('sql.json', 'r').read())['sql']['pg_dbname']
-db_user = json.loads(open('sql.json', 'r').read())['sql']['pg_user']
-db_pass = json.loads(open('sql.json', 'r').read())['sql']['pg_pass']
-db_host = json.loads(open('sql.json', 'r').read())['sql']['pg_host']
-#db_port = json.loads(open('sql.json', 'r').read())['sql']['pg_port']
+db_dbname = json.loads(open('database.json', 'r').read())['sql']['pg_dbname']
+db_user = json.loads(open('database.json', 'r').read())['sql']['pg_user']
+db_pass = json.loads(open('database.json', 'r').read())['sql']['pg_pass']
+db_host = json.loads(open('database.json', 'r').read())['sql']['pg_host']
+#db_port = json.loads(open('database.json', 'r').read())['sql']['pg_port']
 # Date and time used for timestamp in the database.
 t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
-# Time deplay between testing nodes and urls.
+# Time delay between testing nodes and urls.
 sch_delay = 300
 
 # Test the connectivity of nodes
