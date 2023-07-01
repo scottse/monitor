@@ -25,7 +25,7 @@ def nodes_table():
     db_fetch = pg_cur.fetchall()
     
     # Creates the csv file.
-    nodes_csv = open('nodes.csv', 'w')
+    nodes_csv = open('webpage/nodes.csv', 'w')
     cw = csv.writer(nodes_csv)
     c_header = ['hostname', 'IP address', 'Status', 'Last Updated']
     cw.writerow(c_header)
@@ -33,8 +33,8 @@ def nodes_table():
     nodes_csv.close()
     
     # Creates text file of html data from the csv.
-    p_tables = pandas.read_csv('nodes.csv')
-    p_tables.to_html('nodes.txt', index=False)
+    p_tables = pandas.read_csv('webpage/nodes.csv')
+    p_tables.to_html('webpage/nodes.txt', index=False)
     p_html = p_tables.to_html()
 
 # Get data related to URLs from the monitor database.
@@ -43,7 +43,7 @@ def website_table():
     db_fetch = pg_cur.fetchall()
     
     # Creates text file of html data from the csv.
-    url_csv= open('url.csv', 'w')
+    url_csv= open('webpage/url.csv', 'w')
     cw = csv.writer(url_csv)
     c_header = ['URL', 'IP Address', 'Status', 'Last Updated']
     cw.writerow(c_header)
@@ -51,15 +51,15 @@ def website_table():
     url_csv.close()
 
     # Creates text file of html data from the csv.
-    p_tables = pandas.read_csv('url.csv')
-    p_tables.to_html('url.txt', index=False)
+    p_tables = pandas.read_csv('webpage/url.csv')
+    p_tables.to_html('webpage/url.txt', index=False)
     p_html = p_tables.to_html()
 
 # Creates a web page with the status of each item being monitor from the database.
 def status_webpage():
     # Creates the index.html file by writing the html code into it. It pulls the html table code
     # from texts files created from the nodes and website
-    html_file = open('index.html','w')
+    html_file = open('webpage/index.html','w')
     html_file.write(
         '<html>\n<head>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n<h2>Project Monitor Status Page</h2>\n'
         )

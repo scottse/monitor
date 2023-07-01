@@ -58,8 +58,8 @@ def addhost():
     host_if = True if host in h_list() else False
     ip_if = True if ip_a in i_list() else False
 
-    print(host_if)
-    print(ip_if)
+    #print(host_if)
+    #print(ip_if)
 
     if host_if or ip_if == True:
         print('Hostname or IP address already exists. Please try again.')
