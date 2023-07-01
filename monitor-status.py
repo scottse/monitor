@@ -19,50 +19,66 @@ except psycopg2.OperationalError:
 
 pg_cur = pg_conn.cursor()
 
-# Get a list of hostnames from the database.
-def nodes():
+# Gets node data from the monitor database.
+def nodes_table():
     pg_cur.execute("SELECT hostname,ip_addr,status,timestamp FROM nodes")
     db_fetch = pg_cur.fetchall()
     
+    # Creates the csv file.
     nodes_csv = open('nodes.csv', 'w')
     cw = csv.writer(nodes_csv)
     c_header = ['hostname', 'IP address', 'Status', 'Last Updated']
     cw.writerow(c_header)
     cw.writerows(db_fetch)
-    
     nodes_csv.close()
-
+    
+    # Creates text file of html data from the csv.
     p_tables = pandas.read_csv('nodes.csv')
-    p_tables.to_html('nodes.txt')
+    p_tables.to_html('nodes.txt', index=False)
     p_html = p_tables.to_html()
 
-# Get a list of URLs from the database.
-def website():
+# Get data related to URLs from the monitor database.
+def website_table():
     pg_cur.execute("SELECT url,ip_addr,status,timestamp FROM websites")
     db_fetch = pg_cur.fetchall()
     
+    # Creates text file of html data from the csv.
     url_csv= open('url.csv', 'w')
     cw = csv.writer(url_csv)
     c_header = ['URL', 'IP Address', 'Status', 'Last Updated']
     cw.writerow(c_header)
     cw.writerows(db_fetch)
-    
     url_csv.close()
+
+    # Creates text file of html data from the csv.
     p_tables = pandas.read_csv('url.csv')
-    p_tables.to_html('url.txt')
+    p_tables.to_html('url.txt', index=False)
     p_html = p_tables.to_html()
 
-def status_page():
+# Creates a web page with the status of each item being monitor from the database.
+def status_webpage():
+    # Creates the index.html file by writing the html code into it. It pulls the html table code
+    # from texts files created from the nodes and website
     html_file = open('index.html','w')
-    html_file.write('<html>\n<head>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n<h2>Status Page</h2>\n')
+    html_file.write(
+        '<html>\n<head>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n<h2>Project Monitor Status Page</h2>\n'
+        )
+    html_file.writelines('<h3>Nodes:</h3>')
     with open('nodes.txt', 'r') as f1:
         for l1 in f1:
             html_file.write(l1)
     html_file.write('<hr class="dashed">\n')
+    html_file.writelines('<h3>Websites:</h3>')
     with open('url.txt', 'r') as f2:
         for l2 in f2:
             html_file.write(l2)
     html_file.write('\n</body>\n</html>')
-nodes()
-website()
-status_page()
+
+def main():
+    nodes_table()
+    website_table()
+    status_webpage()
+
+
+if __name__ == '__main__':
+    main()
