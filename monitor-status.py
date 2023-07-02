@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
+
 import json
 import psycopg2
 import csv
 import pandas
 import sched
 import time
-import os
-import shutil
 
 # Global vars
-sch_delay = 300
+sch_delay = 10
 sch = sched.scheduler(time.time, time.sleep)
 
 # Using a json file to import elements for the database connection.
-db_dbname = json.loads(open('sql.json', 'r').read())['sql']['pg_dbname']
-db_user = json.loads(open('sql.json', 'r').read())['sql']['pg_user']
-db_pass = json.loads(open('sql.json', 'r').read())['sql']['pg_pass']
-db_host = json.loads(open('sql.json', 'r').read())['sql']['pg_host']
+db_dbname = json.loads(open('database.json', 'r').read())['sql']['pg_dbname']
+db_user = json.loads(open('database.json', 'r').read())['sql']['pg_user']
+db_pass = json.loads(open('database.json', 'r').read())['sql']['pg_pass']
+db_host = json.loads(open('database.json', 'r').read())['sql']['pg_host']
 # db_port = json.loads(open('database.json', 'r').read())['sql']['pg_port']
 
 # Connect to database
@@ -68,7 +67,7 @@ def website_table():
 def status_webpage():
     # Creates the index.html file by writing the html code into it. It pulls the html table code
     # from texts files created from the nodes and website
-    html_file = open('webpage/index.html', 'w')
+    html_file = open('/var/www/monitor/index.html', 'w')
     html_file.write(
         '<html>\n<head>\n<link rel="stylesheet" href="style.css">\n</head>\n<body>\n<h2>Project Monitor Status Page</h2>\n'
     )
@@ -81,20 +80,14 @@ def status_webpage():
     with open('url.txt', 'r') as f2:
         for l2 in f2:
             html_file.write(l2)
+    html_file.write(f'\nLast Updated: {time.strftime("%Y/%m/%d %H:%M:%S %Z")}')
     html_file.write('\n</body>\n</html>')
-
-    # Copy index.html file to webroot directory.
-    origin_dir = ''
-    webroot_dir = '/var/www/html/'
-    fname = 'index.html'
-    shutil.copy
 
 
 def main():
     nodes_table()
     website_table()
     status_webpage()
-    print('ping')
 
 
 def schedule_task():
