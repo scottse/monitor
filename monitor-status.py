@@ -3,12 +3,19 @@ import json
 import psycopg2
 import csv
 import pandas
+import sched
+import time
+import os
+import shutil
+# Global vars
+sch_delay = 300
+sch = sched.scheduler(time.time, time.sleep)
 
 # Using a json file to import elements for the database connection.
-db_dbname = json.loads(open('database.json', 'r').read())['sql']['pg_dbname']
-db_user = json.loads(open('database.json', 'r').read())['sql']['pg_user']
-db_pass = json.loads(open('database.json', 'r').read())['sql']['pg_pass']
-db_host = json.loads(open('database.json', 'r').read())['sql']['pg_host']
+db_dbname = json.loads(open('sql.json', 'r').read())['sql']['pg_dbname']
+db_user = json.loads(open('sql.json', 'r').read())['sql']['pg_user']
+db_pass = json.loads(open('sql.json', 'r').read())['sql']['pg_pass']
+db_host = json.loads(open('sql.json', 'r').read())['sql']['pg_host']
 #db_port = json.loads(open('database.json', 'r').read())['sql']['pg_port']
 
 # Connect to database
@@ -73,12 +80,23 @@ def status_webpage():
         for l2 in f2:
             html_file.write(l2)
     html_file.write('\n</body>\n</html>')
+    
+    # Copy index.html file to webroot directory.
+    origin_dir = ''
+    webroot_dir = '/var/www/html/'
+    fname = 'index.html'
+    shutil.copy
 
 def main():
     nodes_table()
     website_table()
     status_webpage()
+    print('ping')
 
+def schedule_task():
+    sch.enter(sch_delay, 1, main, ())
+    sch.enter(sch_delay, 1, schedule_task, ())
 
 if __name__ == '__main__':
-    main()
+    schedule_task()
+    sch.run()
