@@ -22,8 +22,6 @@ t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
 sch_delay = 300
 
 # Test the connectivity of nodes
-
-
 def ping_nodes():
     pg_cur.execute("SELECT ip_addr FROM nodes")
     fetch_from_db = pg_cur.fetchall()
@@ -55,8 +53,6 @@ def ping_nodes():
     conn.commit()
 
 # Check if the a website returns a HTTP status code of 200.
-
-
 def url_check():
     pg_cur.execute("SELECT url FROM websites")
     fetch_from_db = pg_cur.fetchall()
@@ -92,13 +88,11 @@ def url_check():
 
     conn.commit()
 
-
 def main():
     # This calls the ping_nodes() function to ping all of the nodes in the database.
     ping_nodes()
     # The url_check function is used for checking the http status code of a website.
     url_check()
-
 
 if __name__ == "__main__":
     # Enable logging

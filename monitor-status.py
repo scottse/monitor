@@ -29,8 +29,6 @@ except psycopg2.OperationalError:
 pg_cur = pg_conn.cursor()
 
 # Gets node data from the monitor database.
-
-
 def nodes_table():
     pg_cur.execute("SELECT hostname,ip_addr,status,timestamp FROM nodes")
     db_fetch = pg_cur.fetchall()
@@ -49,8 +47,6 @@ def nodes_table():
     p_html = p_tables.to_html()
 
 # Get data related to URLs from the monitor database.
-
-
 def website_table():
     pg_cur.execute("SELECT url,ip_addr,status,timestamp FROM websites")
     db_fetch = pg_cur.fetchall()
@@ -69,8 +65,6 @@ def website_table():
     p_html = p_tables.to_html()
 
 # Creates a web page with the status of each item being monitor from the database.
-
-
 def status_webpage():
     # Creates the index.html file by writing the html code into it. It pulls the html table code
     # from texts files created from the nodes and website

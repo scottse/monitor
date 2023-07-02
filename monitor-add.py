@@ -20,8 +20,6 @@ except psycopg2.OperationalError:
     print('Unable to connect to database. Please check network connect or username/password.')
 
 # Get a list of hostnames from the database.
-
-
 def h_list():
     pg_cur.execute("SELECT hostname FROM nodes")
 
@@ -32,8 +30,6 @@ def h_list():
     return node_list
 
 # Get a list of IP addresses from the database.
-
-
 def i_list():
     pg_cur.execute("SELECT ip_addr FROM nodes")
 
@@ -44,8 +40,6 @@ def i_list():
     return ip_list
 
 # Get a list of URLs from the database.
-
-
 def u_list():
     pg_cur.execute("SELECT url FROM websites")
 
@@ -56,8 +50,6 @@ def u_list():
     return url_list
 
 # A function to add a host into the database.
-
-
 def addhost():
     print('Please enter hostname and IP address:')
 
@@ -66,9 +58,6 @@ def addhost():
 
     host_if = True if host in h_list() else False
     ip_if = True if ip_a in i_list() else False
-
-    # print(host_if)
-    # print(ip_if)
 
     if host_if or ip_if == True:
         print('Hostname or IP address already exists. Please try again.')
@@ -80,8 +69,6 @@ def addhost():
     pg_conn.close()
 
 # A function to add a URL to the database.
-
-
 def addweb():
     print('Please enter url: ')
     url = input('URL: ')
@@ -97,8 +84,6 @@ def addweb():
     pg_conn.close()
 
 # Using Argparse for a basic CLI for this program.
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-host', dest='host', action='store_const', const=True)
