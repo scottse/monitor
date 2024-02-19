@@ -23,6 +23,9 @@ t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
 # Time delay between testing nodes and urls.
 sch_delay = 300
 
+# Working directory
+work_dir = ''
+
 # Test the connectivity of nodes
 def ping_nodes():
     pg_cur.execute("SELECT ip_addr FROM nodes")
