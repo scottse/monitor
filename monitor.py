@@ -18,8 +18,9 @@ db_user = json.loads(open('database.json', 'r').read())['sql']['pg_user']
 db_pass = json.loads(open('database.json', 'r').read())['sql']['pg_pass']
 db_host = json.loads(open('database.json', 'r').read())['sql']['pg_host']
 # db_port = json.loads(open('database.json', 'r').read())['sql']['pg_port']
+
 # Date and time used for timestamp in the database.
-t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
+# t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
 # Time delay between testing nodes and urls.
 sch_delay = 300
 
@@ -62,7 +63,8 @@ def url_check():
     pg_cur.execute("SELECT url FROM websites")
     fetch_from_db = pg_cur.fetchall()
     url_list = [x[0] for x in fetch_from_db]
-
+    t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
+    
     for i in url_list:
         try:
             r = requests.get(i)
