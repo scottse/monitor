@@ -17,7 +17,7 @@ db_dbname = json.loads(open('database.json', 'r').read())['sql']['pg_dbname']
 db_user = json.loads(open('database.json', 'r').read())['sql']['pg_user']
 db_pass = json.loads(open('database.json', 'r').read())['sql']['pg_pass']
 db_host = json.loads(open('database.json', 'r').read())['sql']['pg_host']
-# db_port = json.loads(open('database.json', 'r').read())['sql']['pg_port']
+db_port = json.loads(open('database.json', 'r').read())['sql']['pg_port']
 
 # Date and time used for timestamp in the database.
 # t = time.strftime("%Y/%m/%d %H:%M:%S %Z")
