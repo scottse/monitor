@@ -85,12 +85,15 @@ def url_check():
 
                 # Error logging
                 logging.warning(f'{i} did not have http status 200')
+                
         except requests.ConnectionError:
             # print(f'connection fail on {i}') # for debug
             pg_cur.execute(
                 f"UPDATE websites SET status = 'dns error' WHERE url = '{i}'")
             pg_cur.execute(
                 f"UPDATE websites SET timestamp = '{t}' WHERE url = '{i}'")
+            
+            #Error logging
             logging.warning(f'{i} failed to connect. DNS?')
 
     conn.commit()
