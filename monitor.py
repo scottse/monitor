@@ -89,12 +89,12 @@ def url_check():
         except requests.ConnectionError:
             # print(f'connection fail on {i}') # for debug
             pg_cur.execute(
-                f"UPDATE websites SET status = 'dns error' WHERE url = '{i}'")
+                f"UPDATE websites SET status = 'error' WHERE url = '{i}'")
             pg_cur.execute(
                 f"UPDATE websites SET timestamp = '{t}' WHERE url = '{i}'")
             
             #Error logging
-            logging.warning(f'{i} failed to connect. DNS?')
+            logging.warning(f'{i} failed to connect.')
 
     conn.commit()
 
